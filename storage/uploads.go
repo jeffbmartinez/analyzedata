@@ -21,5 +21,12 @@ func StoreUpload(uuid string, originalFilename string, storagePathname string) e
 
 	fmt.Printf("Would be storing (%v, %v, %v) to db\n", uuid, originalFilename, storagePathname)
 
-	return nil
+	_, err = db.Exec("INSERT INTO uploads (uuid, original_filename, storage_path) VALUES (?, ?, ?)",
+		uuid, originalFilename, storagePathname)
+	if err != nil {
+		log.Errorf("Problem storing upload info to db (uuid: %v, original_filename: %v, storage_path: %v): %v",
+			uuid, originalFilename, storagePathname, err)
+	}
+
+	return err
 }
