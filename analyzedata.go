@@ -12,12 +12,13 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 
 	"github.com/gorilla/mux"
+
 	"github.com/jeffbmartinez/cleanexit"
+	"github.com/jeffbmartinez/log"
 
 	"github.com/jeffbmartinez/analyzedata/handler"
 )
@@ -35,7 +36,8 @@ func main() {
 
 	router := mux.NewRouter()
 
-	router.HandleFunc("/uploadfile", handler.UploadFile).Methods("POST")
+	apiRouter := router.PathPrefix("/api").Subrouter()
+	apiRouter.HandleFunc("/uploadfile", handler.UploadFile).Methods("POST")
 
 	http.Handle("/", router)
 
