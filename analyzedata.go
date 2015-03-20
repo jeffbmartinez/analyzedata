@@ -40,6 +40,8 @@ func main() {
 	apiRouter.HandleFunc("/uploadfile", handler.UploadFile).Methods("POST")
 	apiRouter.HandleFunc("/downloadfile/{uuid}", handler.DownloadFile).Methods("GET")
 
+	router.PathPrefix("/").Handler(http.FileServer(http.Dir("frontend/")))
+
 	http.Handle("/", router)
 
 	listenHost := "localhost"
