@@ -1,2 +1,2 @@
 # analyzedata
-Tool for analyzing data file
+Tool for analyzing data files
